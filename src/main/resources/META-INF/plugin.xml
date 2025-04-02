@@ -1,15 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.martinvisser.monorepoplugin</id>
-    <name>monorepo-plugin</name>
-    <vendor>martinvisser</vendor>
+    <name>Monorepo</name>
+    <vendor>Martin Visser</vendor>
+
+    <description><![CDATA[
+    A plugin to filter project view based on code-owners.json configuration.
+    ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
+<!--    <depends>com.intellij.modules.projectView</depends>-->
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.martinvisser.monorepoplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-        <postStartupActivity implementation="com.github.martinvisser.monorepoplugin.startup.MyProjectActivity" />
+        <applicationService serviceImplementation="com.github.martinvisser.monorepoplugin.services.CodeOwnersSettingsState"/>
+<!--        <projectService serviceImplementation="com.github.martinvisser.monorepoplugin.services.CodeOwnersService"/>-->
+        <applicationConfigurable
+            parentId="tools"
+            instance="com.github.martinvisser.monorepoplugin.services.CodeOwnersSettingsConfigurable"
+            id="com.github.martinvisser.monorepoplugin.services.CodeOwnersSettingsConfigurable"
+            displayName="Code Owners Filter"/>
     </extensions>
+
+<!--    <applicationListeners>-->
+<!--        <listener class="com.github.martinvisser.monorepoplugin.services.CodeOwnersStartupActivity" topic="com.intellij.openapi.project.ProjectManagerListener" activeInTestMode="true"/>-->
+<!--    </applicationListeners>-->
 </idea-plugin>
