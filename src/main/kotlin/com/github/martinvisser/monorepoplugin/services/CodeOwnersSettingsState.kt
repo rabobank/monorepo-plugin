@@ -20,4 +20,8 @@ class CodeOwnersSettingsState : PersistentStateComponent<CodeOwnersSettingsState
     override fun loadState(state: CodeOwnersSettingsState) {
         XmlSerializerUtil.copyBean(state, this)
     }
+
+    fun updateSelectedTeams(teams: List<String>) {
+        selectedTeams = teams
+    }
 }

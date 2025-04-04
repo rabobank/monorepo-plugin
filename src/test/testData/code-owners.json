@@ -1,0 +1,16 @@
+{
+  "teams": {
+    "Team 1": {
+      "paths": [
+        "/path/one/*",
+        "/path/two/*"
+      ]
+    },
+    "Team 2": {
+      "paths": [
+        "/path/three/*",
+        "!/path/three/four/*"
+      ]
+    }
+  }
+}
