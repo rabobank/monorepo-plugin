@@ -12,7 +12,7 @@
     <depends>com.intellij.modules.platform</depends>
 <!--    <depends>com.intellij.modules.projectView</depends>-->
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
+    <resource-bundle>messages.CodeOwnersBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.martinvisser.monorepoplugin.services.CodeOwnersSettingsState"/>
