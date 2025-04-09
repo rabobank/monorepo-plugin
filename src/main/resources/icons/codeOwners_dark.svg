@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="24" height="24" viewBox="0 0 24 24"
+     role="img" aria-label="Filter monorepo icon">
+    <g fill="none" stroke="#CED0D6" stroke-width="1.75"
+       stroke-linecap="round" stroke-linejoin="round">
+        <!-- Monorepo / branch spine -->
+        <path d="M6 4v16"/>
+        <!-- Branch stubs (suggest multiple modules/packages) -->
+        <path d="M6 6h4M6 12h6M6 18h5"/>
+        <!-- Nodes -->
+        <circle cx="6" cy="6" r="1.5" fill="#CED0D6" stroke="none"/>
+        <circle cx="6" cy="12" r="1.5" fill="#CED0D6" stroke="none"/>
+        <circle cx="6" cy="18" r="1.5" fill="#CED0D6" stroke="none"/>
+        <!-- Filter funnel -->
+        <path d="M14 5h8l-2 4h-4z" stroke="#3574F0"/>
+        <path d="M18 9v7" stroke="#3574F0"/>
+    </g>
+</svg>

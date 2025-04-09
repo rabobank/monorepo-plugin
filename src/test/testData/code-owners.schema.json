@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "/CodeOwnersFileSchema",
+  "title": "Code owners",
+  "description": "Schema for validating the code-owners file in the Senses project",
+  "type": "object",
+  "properties": {
+    "teams": {
+      "type": "object",
+      "patternProperties": {
+        ".+": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "Squad Finder ID of the team. See: https://hub.rabobank.nl/rop-portal/docs/senses/senses-4-tooling/code-owners-8692e616-5208-3b10-a2cd-fcece82ed1ca/",
+              "type": "string",
+              "pattern": "^[a-z0-9]{7,8}|UNKNOWN$",
+              "required": true
+            },
+            "productOwner": {
+              "description": "Rabobank email address of Product Owner of the team (synced from Squad Finder). See: https://hub.rabobank.nl/rop-portal/docs/senses/senses-4-tooling/code-owners-8692e616-5208-3b10-a2cd-fcece82ed1ca/",
+              "type": "string",
+              "format": "email",
+              "pattern": ".*rabobank.[nl|com]",
+              "required": true
+            },
+            "functionalMailbox": {
+              "description": "Functional Mailbox email address of the team (synced from Squad Finder). See: https://hub.rabobank.nl/rop-portal/docs/senses/senses-4-tooling/code-owners-8692e616-5208-3b10-a2cd-fcece82ed1ca/",
+              "type": "string",
+              "minLength": 8,
+              "pattern": ".*rabobank.[nl|com]",
+              "required": true
+            },
+            "members": {
+              "description": "Rabobank email addresses for each member of the team. See: https://hub.rabobank.nl/rop-portal/docs/senses/senses-4-tooling/code-owners-8692e616-5208-3b10-a2cd-fcece82ed1ca/",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "email",
+                "pattern": ".*rabobank.[nl|com]"
+              },
+              "minItems": 2,
+              "uniqueItems": true,
+              "required": true
+            },
+            "paths": {
+              "description": "Paths to files or directories which are owned by the team. See: https://hub.rabobank.nl/rop-portal/docs/senses/senses-4-tooling/code-owners-8692e616-5208-3b10-a2cd-fcece82ed1ca/",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "codeOwnersPath"
+              },
+              "minItems": 1,
+              "uniqueItems": true,
+              "required": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,16 +1,65 @@
 {
-  "teams": {
-    "Team 1": {
-      "paths": [
-        "/path/one/*",
-        "/path/two/*"
-      ]
-    },
-    "Team 2": {
-      "paths": [
-        "/path/three/*",
-        "!/path/three/four/*"
-      ]
+    "$schema": "code-owners.schema.json",
+    "teams": {
+        "Team 1": {
+            "paths": [
+                "/src/*"
+            ]
+        },
+        "Team 2": {
+            "paths": [
+                "/libs/features/*",
+                "/libs/pages/*",
+                "/libs/mocks/*",
+                "!/libs/mocks/rbb/*"
+            ]
+        },
+        "3DGators": {
+            "paths": [
+                "/libs/features/payments/trxn-signing/*",
+                "/libs/pages/rbo/main-settings/debit-credit-cards/creditcards/_index/*",
+                "/libs/pages/rbo/main-settings/debit-credit-cards/creditcards/trxn-signing/*",
+                "/libs/pages/rbb/main-settings/debit-credit-cards/creditcards/trxn-signing/*",
+                "/libs/rbo/redirect/*",
+                "!/libs/rbo/redirect/src/lib/business-user-conditionals.service.ts",
+                "/libs/mocks/rbo/__files/server/creditcard-trxn-signing/*",
+                "/libs/mocks/rbb/__files/server/creditcard-trxn-signing/*",
+                "/libs/mocks/rbo/mappings/api/msp/payments/threed-secure/*",
+                "/libs/mocks/rbb/mappings/api/msp/payments/threed-secure/*",
+                "/apps/rbo-e2e/spec/settings/creditcards/threeDS.spec.ts",
+                "/apps/rbo-e2e/async/objects/pages/zelf-regelen/creditcard/*",
+                "/apps/rbo-e2e/async/objects/pages/settings/creditcard/trxn-signing.page.ts",
+                "/libs/mocks/rbo/mappings/api/msp/customer/profiles/conditionals/threeDS_usercondition.json"
+            ]
+        },
+        "Skunk Works": {
+            "paths": [
+                "/apps/deeplink-fallback-e2e/*",
+                "/apps/deeplink-fallback/*",
+                "/apps/ost-e2e/*",
+                "/apps/ost/*",
+                "/apps/rbb-e2e/spec/online-status-tool-notification/online-status-tool-notification.spec.ts",
+                "/apps/rbo-e2e/spec/dashboard/online-status-tool-notification.spec.ts",
+                "/libs/common/online-status-tool-notification/*",
+                "/libs/features/misc/qr-handover/*",
+                "/libs/features/ost/*",
+                "/libs/mocks/deeplink-fallback/*",
+                "/libs/mocks/ost/*",
+                "/libs/mocks/rbb/mappings/api/ost/messages/*",
+                "/libs/mocks/rbo/__files/online-status-tool-notification/*",
+                "/libs/mocks/rbo/mappings/api/disturbances/*",
+                "/libs/mocks/rbo/mappings/api/ost/messages/*",
+                "!/libs/mocks/rbo/mappings/api/ost/messages/card-level-messages-all.json",
+                "!/libs/mocks/rbo/mappings/api/ost/messages/card-level-messages-credit-card.json",
+                "!/libs/mocks/rbo/mappings/api/ost/messages/card-level-messages-investments.json",
+                "!/libs/mocks/rbo/mappings/api/ost/messages/card-level-messages-online-bankieren.json",
+                "!/libs/mocks/rbo/mappings/api/ost/messages/card-level-messages-online-bankieren_1.json",
+                "!/libs/mocks/rbo/mappings/api/ost/messages/card-level-messages-payment-with-error.json",
+                "!/libs/mocks/rbo/mappings/api/ost/messages/card-level-messages-payment.json",
+                "!/libs/mocks/rbo/mappings/api/ost/messages/card-level-messages-savings.json",
+                "/libs/ost/*",
+                "/libs/pages/ost/*"
+            ]
+        }
     }
-  }
 }

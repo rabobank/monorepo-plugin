@@ -6,25 +6,33 @@
     <vendor>Martin Visser</vendor>
 
     <description><![CDATA[
-    A plugin to filter project view based on code-owners.json configuration.
+    A plugin to filter the project view based on the code-owners.json configuration.
+    It allows users to limit visible files to those owned by specific teams, making it easier to navigate monorepo projects.
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
-<!--    <depends>com.intellij.modules.projectView</depends>-->
 
-    <resource-bundle>messages.CodeOwnersBundle</resource-bundle>
+    <resource-bundle>messages.ResourceBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.martinvisser.monorepoplugin.services.CodeOwnersSettingsState"/>
-<!--        <projectService serviceImplementation="com.github.martinvisser.monorepoplugin.services.CodeOwnersService"/>-->
-        <applicationConfigurable
+        <postStartupActivity
+            implementation="com.github.martinvisser.monorepoplugin.startup.MonorepoPluginStartupActivity"/>
+        <treeStructureProvider
+            implementation="com.github.martinvisser.monorepoplugin.provider.MonorepoTreeStructureProvider"/>
+
+        <toolWindow id="Monorepo Team Filter"
+                    anchor="right"
+                    factoryClass="com.github.martinvisser.monorepoplugin.toolwindow.MonorepoTeamFilterToolWindowFactory"
+                    icon="/icons/codeOwners.svg"
+        />
+
+        <statusBarWidgetFactory id="Monorepo Status bar widget"
+                                implementation="com.github.martinvisser.monorepoplugin.ui.MonorepoOwnerStatusWidgetFactory"/>
+
+        <projectConfigurable
             parentId="tools"
-            instance="com.github.martinvisser.monorepoplugin.services.CodeOwnersSettingsConfigurable"
-            id="com.github.martinvisser.monorepoplugin.services.CodeOwnersSettingsConfigurable"
-            displayName="Code Owners Filter"/>
+            instance="com.github.martinvisser.monorepoplugin.settings.MonorepoSettings"
+            displayName="Monorepo Team Filter"/>
     </extensions>
 
-<!--    <applicationListeners>-->
-<!--        <listener class="com.github.martinvisser.monorepoplugin.services.CodeOwnersStartupActivity" topic="com.intellij.openapi.project.ProjectManagerListener" activeInTestMode="true"/>-->
-<!--    </applicationListeners>-->
 </idea-plugin>
