@@ -165,6 +165,7 @@ jobs:
         timeout-minutes: 25
         with:
           cache-default-branch-only: true
+          args: --property,idea.background.write.action.enabled=false
 
   # Run plugin structure verification along with IntelliJ Plugin Verifier
   verify:
