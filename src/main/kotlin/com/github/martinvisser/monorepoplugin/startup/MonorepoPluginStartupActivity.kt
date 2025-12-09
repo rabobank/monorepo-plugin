@@ -14,18 +14,17 @@ import kotlin.time.measureTime
 class MonorepoPluginStartupActivity : ProjectActivity {
     override suspend fun execute(project: Project) {
         ApplicationManager.getApplication().invokeLater {
+            val projectDir = project.guessProjectDir() ?: return@invokeLater
+            val module =
+                ProjectFileIndex.getInstance(project).getModuleForFile(projectDir) ?: return@invokeLater
+            val model = ModuleRootManager.getInstance(module).modifiableModel
+            val contentEntry =
+                model.contentEntries.find { projectDir.path.startsWith(it.file?.path.orEmpty()) }
+            if (contentEntry == null) {
+                logger.warn("No content entry found for project dir: ${projectDir.path}")
+                return@invokeLater
+            }
             runWriteAction {
-                val projectDir = project.guessProjectDir() ?: return@runWriteAction
-                val module =
-                    ProjectFileIndex.getInstance(project).getModuleForFile(projectDir) ?: return@runWriteAction
-                val model = ModuleRootManager.getInstance(module).modifiableModel
-                val contentEntry =
-                    model.contentEntries.find { projectDir.path.startsWith(it.file?.path.orEmpty()) }
-                if (contentEntry == null) {
-                    logger.warn("No content entry found for project dir: ${projectDir.path}")
-                    return@runWriteAction
-                }
-
                 val defaultExclusions =
                     setOf(
                         "/.idea/",
