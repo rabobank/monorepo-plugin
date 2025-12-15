@@ -8,8 +8,8 @@ changelog = "2.5.0"
 gson = "2.13.2"
 intelliJPlatform = "2.10.5"
 kotlin = "2.2.21"
-kover = "0.9.3"
-qodana = "2025.2.3"
+kover = "0.9.4"
+qodana = "2025.2.4"
 
 [libraries]
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
