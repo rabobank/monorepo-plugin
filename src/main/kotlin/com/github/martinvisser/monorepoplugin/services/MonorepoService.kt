@@ -315,6 +315,9 @@ class MonorepoService(
         }.also {
             logger.debug("Time taken to save project: $it")
         }
+
+        VirtualFileManager.getInstance().asyncRefresh()
+
         logger.debug("Tree updated, and file system refreshed")
     }
 
