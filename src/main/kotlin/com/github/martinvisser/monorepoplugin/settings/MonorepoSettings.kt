@@ -96,14 +96,25 @@ class MonorepoSettings(
                             chooser.showDialog()
                             val selectedVirtual = chooser.selectedFile?.virtualFile
                             if (selectedVirtual != null) {
-                                text = selectedVirtual.path
+                                val absolutePath = selectedVirtual.path
+                                val projectRoot = project.basePath ?: ""
+                                val relativePath = if (absolutePath.startsWith(projectRoot)) {
+                                    absolutePath.removePrefix(projectRoot).removePrefix("/")
+                                } else {
+                                    absolutePath
+                                }
+                                text = relativePath
                                 monorepoService.getCodeOwnerRules() // parse immediately
                                 refreshTeamCheckboxes()
+
                                 ToolWindowManager
                                     .getInstance(project)
                                     .getToolWindow(TOOL_WINDOW_ID)
                                     ?.component
                                     ?.repaint()
+
+                                // Notify listeners of file change
+                                CodeOwnersFileChangedNotifier.notifyChanged(relativePath)
                             }
                         }
                     }
@@ -163,12 +174,15 @@ class MonorepoSettings(
         }
 
         // Save to settings state
-        storage.state.favoriteTeams =
-            favoritesCheckboxPanel.components
-                .filterIsInstance<JCheckBox>()
-                .filter { it.isSelected }
-                .map { it.text }
-                .toMutableSet()
+        val newFavorites = favoritesCheckboxPanel.components
+            .filterIsInstance<JCheckBox>()
+            .filter { it.isSelected }
+            .map { it.text }
+            .toMutableSet()
+        storage.state.favoriteTeams = newFavorites
+
+        // Notify listeners of favorites change
+        FavoritesChangedNotifier.notifyChanged(newFavorites)
 
         ToolWindowManager
             .getInstance(project)
@@ -185,5 +199,43 @@ class MonorepoSettings(
 
     private companion object {
         private val logger = Logger.getInstance(MonorepoSettings::class.java)
+    }
+
+    interface CodeOwnersFileChangedListener {
+        fun onCodeOwnersFileChanged(newPath: String)
+    }
+
+    // Utility to notify listeners
+    object CodeOwnersFileChangedNotifier {
+        private val listeners = mutableListOf<CodeOwnersFileChangedListener>()
+
+        fun addListener(listener: CodeOwnersFileChangedListener) {
+            listeners.add(listener)
+        }
+
+        fun removeListener(listener: CodeOwnersFileChangedListener) {
+            listeners.remove(listener)
+        }
+
+        fun notifyChanged(newPath: String) {
+            listeners.forEach { it.onCodeOwnersFileChanged(newPath) }
+        }
+    }
+
+    interface FavoritesChangedListener {
+        fun onFavoritesChanged(newFavorites: Set<String>)
+    }
+
+    object FavoritesChangedNotifier {
+        private val listeners = mutableListOf<FavoritesChangedListener>()
+        fun addListener(listener: FavoritesChangedListener) {
+            listeners.add(listener)
+        }
+        fun removeListener(listener: FavoritesChangedListener) {
+            listeners.remove(listener)
+        }
+        fun notifyChanged(newFavorites: Set<String>) {
+            listeners.forEach { it.onFavoritesChanged(newFavorites) }
+        }
     }
 }

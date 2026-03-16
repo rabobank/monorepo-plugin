@@ -3,6 +3,10 @@ package com.github.martinvisser.monorepoplugin.toolwindow
 import com.github.martinvisser.monorepoplugin.ResourceBundle
 import com.github.martinvisser.monorepoplugin.services.MonorepoPluginStorage
 import com.github.martinvisser.monorepoplugin.services.MonorepoService
+import com.github.martinvisser.monorepoplugin.settings.MonorepoSettings.CodeOwnersFileChangedListener
+import com.github.martinvisser.monorepoplugin.settings.MonorepoSettings.CodeOwnersFileChangedNotifier
+import com.github.martinvisser.monorepoplugin.settings.MonorepoSettings.FavoritesChangedListener
+import com.github.martinvisser.monorepoplugin.settings.MonorepoSettings.FavoritesChangedNotifier
 import com.intellij.icons.AllIcons
 import com.intellij.icons.AllIcons.Actions.Refresh
 import com.intellij.openapi.actionSystem.ActionManager
@@ -53,6 +57,22 @@ class MonorepoTeamFilterToolWindowFactory :
         private val settingsState = project.service<MonorepoPluginStorage>().state
 
         init {
+            // Register listener for code owners file changes
+            CodeOwnersFileChangedNotifier.addListener(
+                object : CodeOwnersFileChangedListener {
+                    override fun onCodeOwnersFileChanged(newPath: String) {
+                        resetView()
+                    }
+                },
+            )
+            // Register listener for favorites changes
+            FavoritesChangedNotifier.addListener(
+                object : FavoritesChangedListener {
+                    override fun onFavoritesChanged(newFavorites: Set<String>) {
+                        resetView()
+                    }
+                },
+            )
             contentPanel = buildContent(project)
 
             toolWindow.component.add(contentPanel)
