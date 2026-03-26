@@ -84,6 +84,7 @@ class MonorepoSettings(
                         text = storage.state.codeOwnersPath.orEmpty()
 
                         addActionListener {
+                            @Suppress("DialogTitleCapitalization")
                             val chooser =
                                 TreeFileChooserFactory
                                     .getInstance(project)
@@ -98,11 +99,12 @@ class MonorepoSettings(
                             if (selectedVirtual != null) {
                                 val absolutePath = selectedVirtual.path
                                 val projectRoot = project.basePath ?: ""
-                                val relativePath = if (absolutePath.startsWith(projectRoot)) {
-                                    absolutePath.removePrefix(projectRoot).removePrefix("/")
-                                } else {
-                                    absolutePath
-                                }
+                                val relativePath =
+                                    if (absolutePath.startsWith(projectRoot)) {
+                                        absolutePath.removePrefix(projectRoot).removePrefix("/")
+                                    } else {
+                                        absolutePath
+                                    }
                                 text = relativePath
                                 monorepoService.getCodeOwnerRules() // parse immediately
                                 refreshTeamCheckboxes()
@@ -114,7 +116,7 @@ class MonorepoSettings(
                                     ?.repaint()
 
                                 // Notify listeners of file change
-                                CodeOwnersFileChangedNotifier.notifyChanged(relativePath)
+                                CodeOwnersFileChangedNotifier.notifyChanged()
                             }
                         }
                     }
@@ -174,15 +176,16 @@ class MonorepoSettings(
         }
 
         // Save to settings state
-        val newFavorites = favoritesCheckboxPanel.components
-            .filterIsInstance<JCheckBox>()
-            .filter { it.isSelected }
-            .map { it.text }
-            .toMutableSet()
+        val newFavorites =
+            favoritesCheckboxPanel.components
+                .filterIsInstance<JCheckBox>()
+                .filter { it.isSelected }
+                .map { it.text }
+                .toMutableSet()
         storage.state.favoriteTeams = newFavorites
 
         // Notify listeners of favorites change
-        FavoritesChangedNotifier.notifyChanged(newFavorites)
+        FavoritesChangedNotifier.notifyChanged()
 
         ToolWindowManager
             .getInstance(project)
@@ -202,7 +205,7 @@ class MonorepoSettings(
     }
 
     interface CodeOwnersFileChangedListener {
-        fun onCodeOwnersFileChanged(newPath: String)
+        fun onCodeOwnersFileChanged()
     }
 
     // Utility to notify listeners
@@ -213,29 +216,24 @@ class MonorepoSettings(
             listeners.add(listener)
         }
 
-        fun removeListener(listener: CodeOwnersFileChangedListener) {
-            listeners.remove(listener)
-        }
-
-        fun notifyChanged(newPath: String) {
-            listeners.forEach { it.onCodeOwnersFileChanged(newPath) }
+        fun notifyChanged() {
+            listeners.forEach { it.onCodeOwnersFileChanged() }
         }
     }
 
     interface FavoritesChangedListener {
-        fun onFavoritesChanged(newFavorites: Set<String>)
+        fun onFavoritesChanged()
     }
 
     object FavoritesChangedNotifier {
         private val listeners = mutableListOf<FavoritesChangedListener>()
+
         fun addListener(listener: FavoritesChangedListener) {
             listeners.add(listener)
         }
-        fun removeListener(listener: FavoritesChangedListener) {
-            listeners.remove(listener)
-        }
-        fun notifyChanged(newFavorites: Set<String>) {
-            listeners.forEach { it.onFavoritesChanged(newFavorites) }
+
+        fun notifyChanged() {
+            listeners.forEach { it.onFavoritesChanged() }
         }
     }
 }

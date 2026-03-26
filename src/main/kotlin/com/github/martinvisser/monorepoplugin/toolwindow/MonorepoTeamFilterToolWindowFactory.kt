@@ -60,7 +60,7 @@ class MonorepoTeamFilterToolWindowFactory :
             // Register listener for code owners file changes
             CodeOwnersFileChangedNotifier.addListener(
                 object : CodeOwnersFileChangedListener {
-                    override fun onCodeOwnersFileChanged(newPath: String) {
+                    override fun onCodeOwnersFileChanged() {
                         resetView()
                     }
                 },
@@ -68,7 +68,7 @@ class MonorepoTeamFilterToolWindowFactory :
             // Register listener for favorites changes
             FavoritesChangedNotifier.addListener(
                 object : FavoritesChangedListener {
-                    override fun onFavoritesChanged(newFavorites: Set<String>) {
+                    override fun onFavoritesChanged() {
                         resetView()
                     }
                 },
