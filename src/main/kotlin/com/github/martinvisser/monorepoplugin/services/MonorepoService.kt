@@ -5,7 +5,7 @@ import com.google.gson.JsonSyntaxException
 import com.intellij.ide.projectView.ProjectView
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.ModalityState
-import com.intellij.openapi.application.runReadAction
+import com.intellij.openapi.application.runReadActionBlocking
 import com.intellij.openapi.application.runWriteAction
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
@@ -61,7 +61,7 @@ class MonorepoService(
         }
 
         return try {
-            val content = PsiManager.getInstance(project).findFile(codeOwnersFile)!!.text
+            val content = runReadActionBlocking { PsiManager.getInstance(project).findFile(codeOwnersFile)!!.text }
             val config = gson.fromJson(content, CodeOwnersConfig::class.java)
 
             // Convert the map to a list of CodeOwnerRule
@@ -122,7 +122,7 @@ class MonorepoService(
 
     fun applyFilter(project: Project) {
         val projectDir = project.guessProjectDir() ?: return
-        val module = ProjectFileIndex.getInstance(project).getModuleForFile(projectDir) ?: return
+        val module = runWriteAction { ProjectFileIndex.getInstance(project).getModuleForFile(projectDir) } ?: return
         val model = ModuleRootManager.getInstance(module).modifiableModel
         val contentEntry =
             model.contentEntries.find { entry ->
@@ -186,7 +186,7 @@ class MonorepoService(
             }
         }
 
-        return runReadAction {
+        return runReadActionBlocking {
             // Process rules and their patterns in order. Non-`!` patterns set the owner,
             // `!` patterns unset the owner so later rules can claim it.
             getCodeOwnerRules().firstNotNullOfOrNull { rule ->
