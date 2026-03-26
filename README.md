@@ -1,8 +1,11 @@
 # Monorepo Plugin
 
-<p style="text-align: center">
-  <img src="src/main/resources/icons/codeOwners.svg" alt="Monorepo Plugin Icon" width="128" height="128" />
-</p>
+<div align="center">
+  <picture>
+    <source srcset="src/main/resources/icons/codeOwners.svg" media="(prefers-color-scheme: dark)">
+    <img src="src/main/resources/icons/codeOwners.svg" alt="Monorepo Plugin Icon" width="96" height="96" style="margin-bottom: 0.5em;" />
+  </picture>
+</div>
 
 ![Build](https://github.com/martinvisser/monorepo-plugin/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
@@ -25,13 +28,19 @@ This plugin is ideal for organizations using a monorepo structure with multiple 
 You can install Monorepo Plugin in several ways:
 
 - **Using the IDE built-in plugin system:**
-  - Go to <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Monorepo"</kbd> > <kbd>Install</kbd>
+    - Go to <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Monorepo"</kbd> > <kbd>Install</kbd>
 
 - **Using JetBrains Marketplace:**
-  - Visit [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID) and click <kbd>Install to ...</kbd> if your IDE is running.
-  - Or download the [latest release](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID/versions) and install it manually via <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+    - Visit [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID) and click <kbd>Install to ...</kbd> if your IDE is running.
+    - Or download the [latest release](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID/versions) and install it manually via <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 - **Manual installation:**
-  - Download the [latest release](https://github.com/martinvisser/monorepo-plugin/releases/latest) and install it manually using <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+    - Download the [latest release](https://github.com/martinvisser/monorepo-plugin/releases/latest) and install it manually using <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 [docs:plugin-description]: https://plugins.jetbrains.com/docs/intellij/plugin-user-experience.html#plugin-description-and-presentation
+
+<!-- Plugin description -->
+This plugin allows users to filter the project view based on the code-owners.json configuration.
+It enables limiting visible files to those owned by specific teams, making it easier to navigate and manage monorepo projects.
+Users can configure favorite teams, apply filters, and customize the code-owners.json path through the settings.
+<!-- Plugin description end -->
