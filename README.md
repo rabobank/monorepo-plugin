@@ -1,49 +1,37 @@
-# monorepo-plugin
+# Monorepo Plugin
+
+<p style="text-align: center">
+  <img src="src/main/resources/icons/codeOwners.svg" alt="Monorepo Plugin Icon" width="128" height="128" />
+</p>
 
 ![Build](https://github.com/martinvisser/monorepo-plugin/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [x] Get familiar with the [template documentation][template].
-- [x] Adjust the [pluginGroup](./gradle.properties) and [pluginName](./gradle.properties), as well as the [id](./src/main/resources/META-INF/plugin.xml) and [sources package](./src/main/kotlin).
-- [x] Adjust the plugin description in `README` (see [Tips][docs:plugin-description])
-- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html?from=IJPluginTemplate).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the `MARKETPLACE_ID` in the above README badges. You can obtain it once the plugin is published to JetBrains Marketplace.
-- [ ] Set the [Plugin Signing](https://plugins.jetbrains.com/docs/intellij/plugin-signing.html?from=IJPluginTemplate) related [secrets](https://github.com/JetBrains/intellij-platform-plugin-template#environment-variables).
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html?from=IJPluginTemplate).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
+## Overview
 
-<!-- Plugin description -->
-This plugin allows users to filter the project view based on the code-owners.json configuration. 
-It enables limiting visible files to those owned by specific teams, making it easier to navigate and manage monorepo projects. 
-Users can configure favorite teams, apply filters, and customize the code-owners.json path through the settings.
-<!-- Plugin description end -->
+Monorepo Plugin is an IntelliJ-based plugin designed to improve navigation and productivity in large monorepo projects. It enables teams to filter and focus the project view based on code ownership, as defined in a `code-owners.json` configuration file. This helps developers quickly find and work with files relevant to their team, reducing noise and improving collaboration in complex repositories.
+
+### Key Features
+- **Project View Filtering:** Limit visible files and folders to those owned by specific teams, as defined in `code-owners.json`.
+- **Favorite Teams:** Mark teams as favorites for quick access and filtering.
+- **Customizable Configuration:** Easily set the path to your `code-owners.json` file in the plugin settings.
+- **Flexible Filtering:** Apply and clear filters as needed to switch between focused and full project views.
+
+This plugin is ideal for organizations using a monorepo structure with multiple teams, making it easier to manage code ownership and streamline development workflows.
 
 ## Installation
 
-- Using the IDE built-in plugin system:
-  
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Monorepo"</kbd> >
-  <kbd>Install</kbd>
-  
-- Using JetBrains Marketplace:
+You can install Monorepo Plugin in several ways:
 
-  Go to [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID) and install it by clicking the <kbd>Install to ...</kbd> button in case your IDE is running.
+- **Using the IDE built-in plugin system:**
+  - Go to <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Monorepo"</kbd> > <kbd>Install</kbd>
 
-  You can also download the [latest release](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID/versions) from JetBrains Marketplace and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+- **Using JetBrains Marketplace:**
+  - Visit [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID) and click <kbd>Install to ...</kbd> if your IDE is running.
+  - Or download the [latest release](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID/versions) and install it manually via <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
-- Manually:
+- **Manual installation:**
+  - Download the [latest release](https://github.com/martinvisser/monorepo-plugin/releases/latest) and install it manually using <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
-  Download the [latest release](https://github.com/martinvisser/monorepo-plugin/releases/latest) and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
-
-
----
-Plugin based on the [IntelliJ Platform Plugin Template][template].
-
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template
 [docs:plugin-description]: https://plugins.jetbrains.com/docs/intellij/plugin-user-experience.html#plugin-description-and-presentation
