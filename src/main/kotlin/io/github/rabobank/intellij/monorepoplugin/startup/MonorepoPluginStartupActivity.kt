@@ -1,4 +1,4 @@
-package com.github.martinvisser.monorepoplugin.startup
+package io.github.rabobank.intellij.monorepoplugin.startup
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.runWriteAction

@@ -1,4 +1,4 @@
-package com.github.martinvisser.monorepoplugin
+package io.github.rabobank.intellij.monorepoplugin
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls

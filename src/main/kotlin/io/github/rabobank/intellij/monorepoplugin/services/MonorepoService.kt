@@ -1,4 +1,4 @@
-package com.github.martinvisser.monorepoplugin.services
+package io.github.rabobank.intellij.monorepoplugin.services
 
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException

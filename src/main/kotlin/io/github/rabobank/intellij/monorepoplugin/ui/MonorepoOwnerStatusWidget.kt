@@ -1,8 +1,5 @@
-package com.github.martinvisser.monorepoplugin.ui
+package io.github.rabobank.intellij.monorepoplugin.ui
 
-import com.github.martinvisser.monorepoplugin.ResourceBundle
-import com.github.martinvisser.monorepoplugin.services.MonorepoPluginStorage
-import com.github.martinvisser.monorepoplugin.services.MonorepoService
 import com.intellij.openapi.application.invokeLater
 import com.intellij.openapi.components.service
 import com.intellij.openapi.fileEditor.FileEditorManager
@@ -16,6 +13,9 @@ import com.intellij.openapi.wm.StatusBarWidget
 import com.intellij.openapi.wm.StatusBarWidget.WidgetPresentation
 import com.intellij.openapi.wm.WindowManager
 import com.intellij.util.Consumer
+import io.github.rabobank.intellij.monorepoplugin.ResourceBundle
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoPluginStorage
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoService
 import java.awt.event.MouseEvent
 
 class MonorepoOwnerStatusWidget(

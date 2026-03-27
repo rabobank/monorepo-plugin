@@ -1,11 +1,11 @@
-package com.github.martinvisser.monorepoplugin.provider
+package io.github.rabobank.intellij.monorepoplugin.provider
 
-import com.github.martinvisser.monorepoplugin.services.MonorepoPluginStorage
 import com.intellij.ide.projectView.TreeStructureProvider
 import com.intellij.ide.projectView.ViewSettings
 import com.intellij.ide.projectView.impl.nodes.PsiFileNode
 import com.intellij.ide.util.treeView.AbstractTreeNode
 import com.intellij.openapi.components.service
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoPluginStorage
 
 class MonorepoTreeStructureProvider : TreeStructureProvider {
     override fun modify(

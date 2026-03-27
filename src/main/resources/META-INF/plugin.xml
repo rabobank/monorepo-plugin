@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.martinvisser.monorepoplugin</id>
+    <id>io.github.rabobank.monorepoplugin</id>
     <name>Monorepo</name>
-    <vendor>Martin Visser</vendor>
+    <vendor>Rabobank</vendor>
 
     <description><![CDATA[
     A plugin to filter the project view based on the code-owners.json configuration.
@@ -16,22 +16,22 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity
-            implementation="com.github.martinvisser.monorepoplugin.startup.MonorepoPluginStartupActivity"/>
+            implementation="io.github.rabobank.intellij.monorepoplugin.startup.MonorepoPluginStartupActivity"/>
         <treeStructureProvider
-            implementation="com.github.martinvisser.monorepoplugin.provider.MonorepoTreeStructureProvider"/>
+            implementation="io.github.rabobank.intellij.monorepoplugin.provider.MonorepoTreeStructureProvider"/>
 
         <toolWindow id="Monorepo Team Filter"
                     anchor="right"
-                    factoryClass="com.github.martinvisser.monorepoplugin.toolwindow.MonorepoTeamFilterToolWindowFactory"
+                    factoryClass="io.github.rabobank.intellij.monorepoplugin.toolwindow.MonorepoTeamFilterToolWindowFactory"
                     icon="/icons/codeOwners.svg"
         />
 
         <statusBarWidgetFactory id="Monorepo Status bar widget"
-                                implementation="com.github.martinvisser.monorepoplugin.ui.MonorepoOwnerStatusWidgetFactory"/>
+                                implementation="io.github.rabobank.intellij.monorepoplugin.ui.MonorepoOwnerStatusWidgetFactory"/>
 
         <projectConfigurable
             parentId="tools"
-            instance="com.github.martinvisser.monorepoplugin.settings.MonorepoSettings"
+            instance="io.github.rabobank.intellij.monorepoplugin.settings.MonorepoSettings"
             displayName="Monorepo Team Filter"/>
     </extensions>
 

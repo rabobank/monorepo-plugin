@@ -1,9 +1,9 @@
-package com.github.martinvisser.monorepoplugin.toolwindow
+package io.github.rabobank.intellij.monorepoplugin.toolwindow
 
-import com.github.martinvisser.monorepoplugin.services.MonorepoPluginStorage
-import com.github.martinvisser.monorepoplugin.services.MonorepoService
 import com.intellij.openapi.components.service
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoPluginStorage
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoService
 
 class MonorepoTeamFilterToolWindowTest : BasePlatformTestCase() {
     private lateinit var storage: MonorepoPluginStorage

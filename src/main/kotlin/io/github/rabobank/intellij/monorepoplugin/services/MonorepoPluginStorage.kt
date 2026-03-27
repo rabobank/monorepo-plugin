@@ -1,12 +1,12 @@
-package com.github.martinvisser.monorepoplugin.services
+package io.github.rabobank.intellij.monorepoplugin.services
 
-import com.github.martinvisser.monorepoplugin.services.MonorepoPluginStorage.PluginState
 import com.intellij.openapi.components.BaseState
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoPluginStorage.PluginState
 
 @Service(Service.Level.PROJECT)
 @State(

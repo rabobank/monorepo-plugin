@@ -1,8 +1,5 @@
-package com.github.martinvisser.monorepoplugin.settings
+package io.github.rabobank.intellij.monorepoplugin.settings
 
-import com.github.martinvisser.monorepoplugin.ResourceBundle
-import com.github.martinvisser.monorepoplugin.services.MonorepoPluginStorage
-import com.github.martinvisser.monorepoplugin.services.MonorepoService
 import com.intellij.ide.util.TreeFileChooserFactory
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.service
@@ -16,6 +13,9 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.dsl.builder.Align
 import com.intellij.ui.dsl.builder.AlignX
 import com.intellij.ui.dsl.builder.panel
+import io.github.rabobank.intellij.monorepoplugin.ResourceBundle
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoPluginStorage
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoService
 import java.awt.Component
 import javax.swing.BoxLayout
 import javax.swing.JCheckBox

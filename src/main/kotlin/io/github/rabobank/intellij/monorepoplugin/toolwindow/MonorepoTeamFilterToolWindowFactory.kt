@@ -1,12 +1,5 @@
-package com.github.martinvisser.monorepoplugin.toolwindow
+package io.github.rabobank.intellij.monorepoplugin.toolwindow
 
-import com.github.martinvisser.monorepoplugin.ResourceBundle
-import com.github.martinvisser.monorepoplugin.services.MonorepoPluginStorage
-import com.github.martinvisser.monorepoplugin.services.MonorepoService
-import com.github.martinvisser.monorepoplugin.settings.MonorepoSettings.CodeOwnersFileChangedListener
-import com.github.martinvisser.monorepoplugin.settings.MonorepoSettings.CodeOwnersFileChangedNotifier
-import com.github.martinvisser.monorepoplugin.settings.MonorepoSettings.FavoritesChangedListener
-import com.github.martinvisser.monorepoplugin.settings.MonorepoSettings.FavoritesChangedNotifier
 import com.intellij.icons.AllIcons
 import com.intellij.icons.AllIcons.Actions.Refresh
 import com.intellij.openapi.actionSystem.ActionManager
@@ -31,6 +24,13 @@ import com.intellij.ui.dsl.builder.bindText
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.builder.text
 import com.intellij.util.ui.JBUI
+import io.github.rabobank.intellij.monorepoplugin.ResourceBundle
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoPluginStorage
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoService
+import io.github.rabobank.intellij.monorepoplugin.settings.MonorepoSettings.CodeOwnersFileChangedListener
+import io.github.rabobank.intellij.monorepoplugin.settings.MonorepoSettings.CodeOwnersFileChangedNotifier
+import io.github.rabobank.intellij.monorepoplugin.settings.MonorepoSettings.FavoritesChangedListener
+import io.github.rabobank.intellij.monorepoplugin.settings.MonorepoSettings.FavoritesChangedNotifier
 import org.jetbrains.annotations.NotNull
 import java.util.*
 

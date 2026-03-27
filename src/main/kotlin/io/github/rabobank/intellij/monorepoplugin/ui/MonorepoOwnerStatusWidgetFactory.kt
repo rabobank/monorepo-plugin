@@ -1,11 +1,11 @@
-package com.github.martinvisser.monorepoplugin.ui
+package io.github.rabobank.intellij.monorepoplugin.ui
 
-import com.github.martinvisser.monorepoplugin.ResourceBundle
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.StatusBar
 import com.intellij.openapi.wm.StatusBarWidget
 import com.intellij.openapi.wm.StatusBarWidgetFactory
+import io.github.rabobank.intellij.monorepoplugin.ResourceBundle
 
 class MonorepoOwnerStatusWidgetFactory :
     StatusBarWidgetFactory,

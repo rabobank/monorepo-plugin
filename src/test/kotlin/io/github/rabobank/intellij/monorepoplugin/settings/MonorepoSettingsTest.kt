@@ -1,8 +1,8 @@
-package com.github.martinvisser.monorepoplugin.settings
+package io.github.rabobank.intellij.monorepoplugin.settings
 
-import com.github.martinvisser.monorepoplugin.services.MonorepoPluginStorage
 import com.intellij.openapi.components.service
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoPluginStorage
 import javax.swing.JPanel
 import javax.swing.JTextField
 
