@@ -8,8 +8,8 @@
 </div>
 
 ![Build](https://github.com/martinvisser/monorepo-plugin/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
+[![Version](https://img.shields.io/jetbrains/plugin/v/io.github.rabobank.monorepoplugin.svg)](https://plugins.jetbrains.com/plugin/io.github.rabobank.monorepoplugin)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/io.github.rabobank.monorepoplugin.svg)](https://plugins.jetbrains.com/plugin/io.github.rabobank.monorepoplugin)
 
 ## Overview
 
@@ -31,8 +31,8 @@ You can install Monorepo Plugin in several ways:
     - Go to <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Monorepo"</kbd> > <kbd>Install</kbd>
 
 - **Using JetBrains Marketplace:**
-    - Visit [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID) and click <kbd>Install to ...</kbd> if your IDE is running.
-    - Or download the [latest release](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID/versions) and install it manually via <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+    - Visit [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/io.github.rabobank.monorepoplugin) and click <kbd>Install to ...</kbd> if your IDE is running.
+    - Or download the [latest release](https://plugins.jetbrains.com/plugin/io.github.rabobank.monorepoplugin/versions) and install it manually via <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 - **Manual installation:**
     - Download the [latest release](https://github.com/martinvisser/monorepo-plugin/releases/latest) and install it manually using <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
