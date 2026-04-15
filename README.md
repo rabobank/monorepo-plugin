@@ -8,8 +8,8 @@
 </div>
 
 ![Build](https://github.com/martinvisser/monorepo-plugin/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/io.github.rabobank.monorepoplugin.svg)](https://plugins.jetbrains.com/plugin/io.github.rabobank.monorepoplugin)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/io.github.rabobank.monorepoplugin.svg)](https://plugins.jetbrains.com/plugin/io.github.rabobank.monorepoplugin)
+[![Version](https://img.shields.io/jetbrains/plugin/v/io.github.rabobank.monorepoplugin.svg)](https://plugins.jetbrains.com/plugin/31169-monorepo)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/io.github.rabobank.monorepoplugin.svg)](https://plugins.jetbrains.com/plugin/31169-monorepo)
 
 ## Overview
 

@@ -3,7 +3,7 @@
 <idea-plugin>
     <id>io.github.rabobank.monorepoplugin</id>
     <name>Monorepo</name>
-    <vendor>Rabobank</vendor>
+    <vendor>Skunk Works</vendor>
 
     <description><![CDATA[
     A plugin to filter the project view based on the code-owners.json configuration.
