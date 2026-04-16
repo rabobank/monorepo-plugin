@@ -31,11 +31,11 @@ You can install Monorepo Plugin in several ways:
     - Go to <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Monorepo"</kbd> > <kbd>Install</kbd>
 
 - **Using JetBrains Marketplace:**
-    - Visit [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/io.github.rabobank.monorepoplugin) and click <kbd>Install to ...</kbd> if your IDE is running.
-    - Or download the [latest release](https://plugins.jetbrains.com/plugin/io.github.rabobank.monorepoplugin/versions) and install it manually via <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+    - Visit [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/31169-monorepo) and click <kbd>Install to ...</kbd> if your IDE is running.
+    - Or download the [latest release](https://plugins.jetbrains.com/plugin/31169-monorepo/versions) and install it manually via <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 - **Manual installation:**
-    - Download the [latest release](https://github.com/martinvisser/monorepo-plugin/releases/latest) and install it manually using <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+    - Download the [latest release](https://github.com/rabobank/monorepo-plugin/releases/latest) and install it manually using <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 [docs:plugin-description]: https://plugins.jetbrains.com/docs/intellij/plugin-user-experience.html#plugin-description-and-presentation
 
