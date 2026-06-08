@@ -24,6 +24,7 @@ import com.intellij.openapi.vfs.VirtualFileVisitor
 import com.intellij.openapi.vfs.isFile
 import com.intellij.psi.PsiManager
 import com.intellij.util.xmlb.annotations.Tag
+import io.github.rabobank.intellij.monorepoplugin.defaultExclusions
 import java.io.IOException
 import java.nio.file.Paths
 import kotlin.io.path.exists
@@ -84,11 +85,40 @@ class MonorepoService(
             .distinct()
             .sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it })
 
-    private fun getCodeOwnerPathsForTeam(teamNames: Set<String>): List<String> =
-        getCodeOwnerRules()
-            .find { it.name in teamNames }
-            ?.paths
-            .orEmpty()
+    fun hasCodeOwners(): Boolean = getCodeOwnerRules().isNotEmpty()
+
+    fun captureConfiguredExclusions(contentEntry: ContentEntry) {
+        if (storage.state.configuredExclusionsSnapshotCaptured) return
+        if (storage.state.pluginExclusions.isNotEmpty()) return
+
+        storage.state.configuredExclusions.clear()
+        storage.state.configuredExclusions.addAll(contentEntry.excludeFolders.map { it.url }.toSet())
+        storage.state.configuredExclusionsSnapshotCaptured = true
+    }
+
+    private fun restoreConfiguredExclusions(
+        contentEntry: ContentEntry,
+        projectDir: VirtualFile,
+    ) {
+        if (!storage.state.configuredExclusionsSnapshotCaptured) {
+            defaultExclusions
+                .mapNotNull(projectDir::findChild)
+                .filter(VirtualFile::isDirectory)
+                .forEach { contentEntry.removeExcludeFolder(it.url) }
+            return
+        }
+
+        val configuredExclusions = storage.state.configuredExclusions.toSet()
+        val currentExclusions = contentEntry.excludeFolders.map { it.url }.toSet()
+
+        currentExclusions
+            .filterNot(configuredExclusions::contains)
+            .forEach(contentEntry::removeExcludeFolder)
+
+        configuredExclusions
+            .filterNot(currentExclusions::contains)
+            .forEach(contentEntry::addExcludeFolder)
+    }
 
     private fun getCodeOwnersFile(): VirtualFile? {
         val customPath = storage.state.codeOwnersPath
@@ -133,6 +163,7 @@ class MonorepoService(
 
         runWriteAction {
             measureTime {
+                captureConfiguredExclusions(contentEntry)
                 storage.state.pluginExclusions.forEach { exclusion ->
                     VirtualFileManager.getInstance().findFileByUrl(exclusion)?.let {
                         if (it.isDirectory) {
@@ -143,24 +174,29 @@ class MonorepoService(
                     }
                 }
                 storage.state.pluginExclusions.clear() // Clear previous plugin exclusions
+                if (storage.state.selectedTeams.isEmpty()) {
+                    restoreConfiguredExclusions(contentEntry, projectDir)
+                }
             }.also { logger.debug("Time taken to clear exclusions: $it") }
         }
 
         if (storage.state.selectedTeams.isEmpty()) {
             save(project, model)
         } else {
-            val allPaths = getCodeOwnerPathsForTeam(storage.state.selectedTeams)
+            val codeOwnerRules = getCodeOwnerRules()
+            val allPaths = codeOwnerRules.find { it.name in storage.state.selectedTeams }?.paths.orEmpty()
             val allowedPaths = allPaths.filterNot { it.startsWith("!") }.toSet()
             val excludedPaths = allPaths.filter { it.startsWith("!") }.map { it.removePrefix("!") }.toSet()
             val includedPaths = allowedPaths - excludedPaths
 
             precomputePathInclusionMap(
-                project,
-                contentEntry,
-                projectDir,
-                includedPaths,
-                excludedPaths,
-                storage,
+                project = project,
+                contentEntry = contentEntry,
+                projectDir = projectDir,
+                includedPaths = includedPaths,
+                excludedPaths = excludedPaths,
+                storage = storage,
+                addDefaultExclusions = codeOwnerRules.isNotEmpty(),
             )
             save(project, model)
         }
@@ -211,22 +247,12 @@ class MonorepoService(
         includedPaths: Set<String>,
         excludedPaths: Set<String>,
         storage: MonorepoPluginStorage,
+        addDefaultExclusions: Boolean,
     ) {
         val basePath = project.basePath ?: return
 
         val exclusions = mutableSetOf<VirtualFile>()
         val inclusions = mutableSetOf<VirtualFile>()
-
-        val defaultExclusions =
-            setOf(
-                "/.idea/",
-                "/.git/",
-                "/.gradle/",
-                "/.nx/",
-                "/build/",
-                "/out/",
-                "/node_modules/",
-            )
 
         fun processFolder(folder: VirtualFile) {
             VfsUtilCore.visitChildrenRecursively(
@@ -263,18 +289,20 @@ class MonorepoService(
 
         exclusions += excludedPaths.mapNotNull { projectDir.findFileByRelativePath(it.removeSuffix("/*")) }
 
-        measureTime {
-            defaultExclusions
-                .mapNotNull(projectDir::findChild)
-                .forEach { file ->
-                    logger.debug("Excluding default: ${file.path}")
-                    if (file.isDirectory) {
-                        contentEntry.addExcludeFolder(file.url)
-                    } else {
-                        contentEntry.addExcludePattern(file.path)
+        if (addDefaultExclusions) {
+            measureTime {
+                defaultExclusions
+                    .mapNotNull(projectDir::findChild)
+                    .forEach { file ->
+                        logger.debug("Excluding default: ${file.path}")
+                        if (file.isDirectory) {
+                            contentEntry.addExcludeFolder(file.url)
+                        } else {
+                            contentEntry.addExcludePattern(file.path)
+                        }
                     }
-                }
-        }.also { logger.debug("Time taken to add default exclusions: $it") }
+            }.also { logger.debug("Time taken to add default exclusions: $it") }
+        }
 
         measureTime {
             exclusions.forEach { file ->

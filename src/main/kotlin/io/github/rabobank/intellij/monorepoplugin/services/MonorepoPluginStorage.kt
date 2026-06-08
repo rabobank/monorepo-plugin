@@ -26,6 +26,8 @@ class MonorepoPluginStorage : PersistentStateComponent<PluginState> {
         var selectedTeams by stringSet()
         var codeOwnersPath by string("code-owners.json")
         var favoriteTeams by stringSet()
+        var configuredExclusionsSnapshotCaptured by property(false)
+        var configuredExclusions by stringSet()
         var pluginExclusions by stringSet()
     }
 }
