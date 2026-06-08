@@ -2,6 +2,7 @@ package io.github.rabobank.intellij.monorepoplugin.startup
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.runWriteAction
+import com.intellij.openapi.components.service
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.guessProjectDir
@@ -9,12 +10,15 @@ import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.startup.ProjectActivity
 import com.intellij.openapi.vfs.VirtualFile
+import io.github.rabobank.intellij.monorepoplugin.defaultExclusions
+import io.github.rabobank.intellij.monorepoplugin.services.MonorepoService
 import kotlin.time.measureTime
 
 class MonorepoPluginStartupActivity : ProjectActivity {
     override suspend fun execute(project: Project) {
         ApplicationManager.getApplication().invokeLater {
             val projectDir = project.guessProjectDir() ?: return@invokeLater
+            val service = project.service<MonorepoService>()
             val module =
                 ProjectFileIndex.getInstance(project).getModuleForFile(projectDir) ?: return@invokeLater
             val model = ModuleRootManager.getInstance(module).modifiableModel
@@ -24,17 +28,13 @@ class MonorepoPluginStartupActivity : ProjectActivity {
                 logger.warn("No content entry found for project dir: ${projectDir.path}")
                 return@invokeLater
             }
+
             runWriteAction {
-                val defaultExclusions =
-                    setOf(
-                        "/.idea/",
-                        "/.git/",
-                        "/.gradle/",
-                        "/.nx/",
-                        "/build/",
-                        "/out/",
-                        "/node_modules/",
-                    )
+                service.captureConfiguredExclusions(contentEntry)
+                if (!service.hasCodeOwners()) {
+                    model.commit()
+                    return@runWriteAction
+                }
 
                 measureTime {
                     defaultExclusions
