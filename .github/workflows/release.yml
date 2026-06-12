@@ -5,7 +5,7 @@
 name: Release
 on:
   release:
-    types: [prereleased, released]
+    types: [released]
 
 jobs:
 
@@ -65,12 +65,24 @@ jobs:
 
           ./gradlew -PpluginVersion=${{ steps.version.outputs.plugin_version }} patchChangelog --release-note-file=$RELEASE_NOTE
 
-      # Detect whether patchChangelog produced a file update before creating a PR
-      - name: Detect Changelog Changes
+      # Keep pluginVersion in gradle.properties in sync with the release tag
+      - name: Patch Gradle Properties Version
+        shell: bash
+        run: |
+          if ! grep -q '^pluginVersion=' gradle.properties; then
+            echo "pluginVersion property not found in gradle.properties"
+            exit 1
+          fi
+
+          sed -i.bak -E "s/^pluginVersion=.*/pluginVersion=${{ steps.version.outputs.plugin_version }}/" gradle.properties
+          rm -f gradle.properties.bak
+
+      # Detect whether release metadata files were updated before creating a PR
+      - name: Detect Release Metadata Changes
         id: changelog
         shell: bash
         run: |
-          if git diff --quiet -- CHANGELOG.md; then
+          if git diff --quiet -- CHANGELOG.md gradle.properties; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
@@ -98,23 +110,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION="${{ github.event.release.tag_name }}"
-          BRANCH="changelog-update-$VERSION"
-          LABEL="release changelog"
+          BRANCH="release-metadata-update-$VERSION"
+          LABEL="release metadata"
 
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
 
           git checkout -b $BRANCH
-          git commit -am "Changelog update - $VERSION"
+          git commit -am "Release metadata update - $VERSION (changelog + pluginVersion)"
           git push --set-upstream origin $BRANCH
 
           gh label create "$LABEL" \
-            --description "Pull requests with release changelog update" \
+            --description "Pull requests with release metadata updates" \
             --force \
             || true
 
           gh pr create \
-            --title "Changelog update - \`$VERSION\`" \
-            --body "Current pull request contains patched \`CHANGELOG.md\` file for the \`$VERSION\` version." \
+            --title "Release metadata update - \`$VERSION\`" \
+            --body "Current pull request contains patched \`CHANGELOG.md\` and \`gradle.properties\` (\`pluginVersion\`) for the \`$VERSION\` version." \
             --label "$LABEL" \
             --head $BRANCH
