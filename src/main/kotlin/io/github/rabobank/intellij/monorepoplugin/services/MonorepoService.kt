@@ -88,12 +88,13 @@ class MonorepoService(
     fun hasCodeOwners(): Boolean = getCodeOwnerRules().isNotEmpty()
 
     fun captureConfiguredExclusions(contentEntry: ContentEntry) {
-        if (storage.state.configuredExclusionsSnapshotCaptured) return
-        if (storage.state.pluginExclusions.isNotEmpty()) return
+        with(storage.state) {
+            if (configuredExclusionsSnapshotCaptured || pluginExclusions.isNotEmpty()) return@with
 
-        storage.state.configuredExclusions.clear()
-        storage.state.configuredExclusions.addAll(contentEntry.excludeFolders.map { it.url }.toSet())
-        storage.state.configuredExclusionsSnapshotCaptured = true
+            configuredExclusions.clear()
+            configuredExclusions.addAll(contentEntry.excludeFolders.map { it.url }.toSet())
+            configuredExclusionsSnapshotCaptured = true
+        }
     }
 
     private fun restoreConfiguredExclusions(
