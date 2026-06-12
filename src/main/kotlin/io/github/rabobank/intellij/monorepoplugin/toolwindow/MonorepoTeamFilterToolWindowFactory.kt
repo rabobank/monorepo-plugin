@@ -102,7 +102,7 @@ class MonorepoTeamFilterToolWindowFactory :
                                     .sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it })
                                     .forEach { name ->
                                         row {
-                                            checkBox(name).bindSelected({ name in selected }) {
+                                            radioButton(name).bindSelected({ name in selected }) {
                                                 if (it) {
                                                     selected.add(name)
                                                 } else {
@@ -120,7 +120,7 @@ class MonorepoTeamFilterToolWindowFactory :
                                 .forEach { name ->
                                     val row =
                                         row {
-                                            checkBox(name).bindSelected({ name in selected }) {
+                                            radioButton(name).bindSelected({ name in selected }) {
                                                 if (it) {
                                                     selected.add(name)
                                                 } else {
