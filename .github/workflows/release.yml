@@ -65,7 +65,7 @@ jobs:
 
           ./gradlew -PpluginVersion=${{ steps.version.outputs.plugin_version }} patchChangelog --release-note-file=$RELEASE_NOTE
 
-            # Keep pluginVersion in gradle.properties in sync with the release tag
+      # Keep pluginVersion in gradle.properties in sync with the release tag
       - name: Patch Gradle Properties Version
         shell: bash
         run: |
