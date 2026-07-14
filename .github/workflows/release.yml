@@ -65,16 +65,16 @@ jobs:
 
           ./gradlew -PpluginVersion=${{ steps.version.outputs.plugin_version }} patchChangelog --release-note-file=$RELEASE_NOTE
 
-      # Keep pluginVersion in gradle.properties in sync with the release tag
+            # Keep pluginVersion in gradle.properties in sync with the release tag
       - name: Patch Gradle Properties Version
         shell: bash
         run: |
-          if ! grep -q '^pluginVersion=' gradle.properties; then
+          if ! grep -qE '^pluginVersion[[:space:]]*=' gradle.properties; then
             echo "pluginVersion property not found in gradle.properties"
             exit 1
           fi
 
-          sed -i.bak -E "s/^pluginVersion=.*/pluginVersion=${{ steps.version.outputs.plugin_version }}/" gradle.properties
+          sed -i.bak -E "s/^pluginVersion[[:space:]]*=.*/pluginVersion = ${{ steps.version.outputs.plugin_version }}/" gradle.properties
           rm -f gradle.properties.bak
 
       # Detect whether release metadata files were updated before creating a PR
