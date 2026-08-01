@@ -45,7 +45,7 @@ jobs:
 
       # Set up the Java environment for the next steps
       - name: Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v5.6.0
         with:
           distribution: zulu
           java-version: 21
@@ -100,7 +100,7 @@ jobs:
 
       # Set up the Java environment for the next steps
       - name: Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v5.6.0
         with:
           distribution: zulu
           java-version: 21
@@ -161,14 +161,14 @@ jobs:
 
       # Set up the Java environment for the next steps
       - name: Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v5.6.0
         with:
           distribution: zulu
           java-version: 21
 
       # Run Qodana inspections
       - name: Qodana - Code Inspection
-        uses: JetBrains/qodana-action@v2026.1
+        uses: JetBrains/qodana-action@v2026.2
         timeout-minutes: 25
         with:
           cache-default-branch-only: true
@@ -194,7 +194,7 @@ jobs:
 
       # Set up the Java environment for the next steps
       - name: Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v5.6.0
         with:
           distribution: zulu
           java-version: 21
